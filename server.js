@@ -37,7 +37,7 @@ require("./routes/apiRoutes")(app);
 require("./routes/htmlRoutes")(app);
 
 // If deployed, use the deployed database. Otherwise use the local 'newsGram' database
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/newsGram";
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/newsgramDb";
 
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true }); // Last two options are for avoiding deprecation
 
