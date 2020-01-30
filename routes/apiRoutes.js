@@ -7,19 +7,17 @@ var cheerio = require("cheerio");
 
 
 module.exports = function (app) {
-    // A GET route for scraping the echoJS website
+    // A GET route for scraping the Dallas Morning News website
     app.get("/scrape", function (req, res) {
-        // First, we grab the body of the html with axios
         axios.get("https://www.dallasnews.com/").then(function (response) {
-            // Then, we load that into cheerio and save it to $ for a shorthand selector
+            // Load that into cheerio and save it to $ var
             var $ = cheerio.load(response.data);
 
-            // Now, we grab every h3 within an article tag, and do the following:
+            // For each article tag execute the following 
             $("article").each(function (i, element) {
-                // Save an empty result object
+                // Crea an empty result object
                 var result = {};
 
-                // Add the text and href of every link, and save them as properties of the result object
                 result.title = $(this).children("h2").children("a").text(); // Title Text
                 result.link = $(this).children("h2").children("a").attr("href"); // Link to Dallas Morning News article
                 result.image = $(this).children("a").children("div").children("img").attr("src"); // Image Source
@@ -39,6 +37,21 @@ module.exports = function (app) {
             // Send a message to the client
             res.send("<h1>Scrape Complete</h1><a href='/'><button>Back to Home</button></a>");
         });
+    });
+
+    // A GEt route to grab all of the articles then using an empty document to delete all of them 
+    app.get("/clearArticles", function (req, res) {
+        db.Article.deleteMany({})
+            .then(function () {
+                console.log("All Articles Deleted");
+            })
+            .catch(function (err) {
+                // If an error occurrs, log it
+                console.log(err);
+            });
+
+        // Send a message to the client
+        res.send("<h1>Clear complete</h1><a href='/'><button>Back to Home</button></a>");
     });
 
     // Route for getting all Articles from the db
