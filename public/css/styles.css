@@ -1,7 +1,3 @@
-#topBreak {
-    background-color: #000000;
-}
-
 .fa-newspaper {
     color: #43a047;
 }
@@ -15,7 +11,7 @@ h1 {
     color: #43a047;
 }
 
-#navBar {
+.navbar {
     background-color: #272727;
 }
 
@@ -24,29 +20,24 @@ h1 {
     color: #ffffff;
 }
 
-#nav-tab {
-    height: 5vh;
-    position: relative;
-}
-
-#savedTab, #homeTab {
+.nav-link {
     color: #ffffff;
     font-size: 20px;
-    padding-top: 18px;
+    padding-top: 12px;
 }
 
-.nav-tabs{
-    border-color: #43a047;
+.nav-link:hover {
+    color: #00701a;
 }
 
-#homeTab:hover, #savedTab:hover {
-    border-color: #43a047;
-    border-bottom: none;
+.nav-link.active {
+    color: #76d275;
 }
 
-.nav-tabs .nav-link.active {
+.fa-bars {
     color: #ffffff;
-    background-color: #121212;
-    border-color: #43a047;
-    border-bottom: none;
+}
+
+.navbar-toggler {
+    border: 1px solid #43a047;
 }

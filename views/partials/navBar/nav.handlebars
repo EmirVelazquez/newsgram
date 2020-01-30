@@ -1,17 +1,19 @@
-<nav id="navBar">
-    <div class="nav nav-tabs" id="nav-tab" role="tablist">
-        <a class="nav-item nav-link disabled" id="newsGramLogo" href="/"><i class="far fa-newspaper"></i>
-            Newsgram</a>
-        <a class="nav-item nav-link active" id="homeTab" data-toggle="tab" href="#nav-profile" role="tab"
-            aria-controls="nav-profile" aria-selected="false">Home</a>
-        <a class="nav-item nav-link" id="savedTab" data-toggle="tab" href="#nav-contact" role="tab"
-            aria-controls="nav-contact" aria-selected="false">Saved</a>
+<nav class="navbar navbar-expand-lg" id="navBar">
+    <a class="navbar-brand" id="newsGramLogo" href="/"><i class="far fa-newspaper"></i>
+        Newsgram</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link active" id="homeLink" href="/">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="savedLink" href="#">Saved</a>
+            </li>
+        </ul>
     </div>
 </nav>
-{{!-- 
-
-<div class="tab-content" id="nav-tabContent">
-    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">...</div>
-    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">...</div>
-    <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
-</div> --}}
