@@ -9,6 +9,17 @@ var cheerio = require("cheerio");
 module.exports = function (app) {
     // A GET route for scraping the Dallas Morning News website
     app.get("/scrape", function (req, res) {
+        // First we grab all of the articles if there are any, then delete all of them so we prevent duplicates
+        db.Article.deleteMany({})
+            .then(function () {
+                console.log("Any existing articles deleted");
+            })
+            .catch(function (err) {
+                // If an error occurrs, log it
+                console.log(err);
+            });
+
+
         axios.get("https://www.dallasnews.com/").then(function (response) {
             // Load that into cheerio and save it to $ var
             var $ = cheerio.load(response.data);
@@ -21,6 +32,7 @@ module.exports = function (app) {
                 result.title = $(this).children("h2").children("a").text(); // Title Text
                 result.link = $(this).children("h2").children("a").attr("href"); // Link to Dallas Morning News article
                 result.image = $(this).children("a").children("div").children("img").attr("src"); // Image Source
+                result.saved = false;
                 console.log(result);
                 // Create a new Article using the `result` object built from scraping
                 db.Article.create(result)
@@ -33,13 +45,10 @@ module.exports = function (app) {
                         console.log(err);
                     });
             });
-
-            // Send a message to the client
-            res.send("<h1>Scrape Complete</h1><a href='/'><button>Back to Home</button></a>");
         });
     });
 
-    // A GEt route to grab all of the articles then using an empty document to delete all of them 
+    // A GET route to grab all of the articles then using an empty document to delete all of them 
     app.get("/clearArticles", function (req, res) {
         db.Article.deleteMany({})
             .then(function () {
@@ -49,9 +58,6 @@ module.exports = function (app) {
                 // If an error occurrs, log it
                 console.log(err);
             });
-
-        // Send a message to the client
-        res.send("<h1>Clear complete</h1><a href='/'><button>Back to Home</button></a>");
     });
 
     // Route for getting all Articles from the db

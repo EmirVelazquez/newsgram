@@ -1,3 +1,33 @@
+/* Keep footer at the bottom */
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+}
+
+#mainContainer {
+    min-height: 100%;
+}
+
+#main {
+    overflow: auto;
+    padding-bottom: 100px;
+}
+
+#footer {
+    background-color: #272727;
+    position: relative;
+    height: 100px;
+    margin-top: -100px;
+    width: 100%;
+    clear: both;
+    color: white;
+}
+/* Keep footer at the bottom */
+
 .fa-newspaper {
     color: #43a047;
 }
@@ -9,11 +39,7 @@ body {
     margin: 0;
 }
 
-h1 {
-    color: #43a047;
-}
-
-.navbar {
+.navbar, .articleCard  {
     background-color: #272727;
 }
 
@@ -53,12 +79,24 @@ h1 {
     background-repeat: no-repeat;
     background-size: cover;
     position: relative;
+    box-shadow: 0 10px 5px -5px #616161;
 }
 
-/* Headings Font */
-.textfont1 {
-    font-family: 'Merriweather', serif;
+.dallasTextContainer {
+    text-align: center;
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
+
+#dallasHeading {
+    color: #ffffff;
+    text-shadow: 0px 0px 20px #000000;
+    font-family: 'Merriweather', serif;
+    font-size: 30px;
+}
+
 /* Text Font */
 .textfont2 {
     font-family: 'Source Sans Pro', sans-serif;
@@ -67,4 +105,38 @@ h1 {
 .navButton {
     background-color: #00701a;
     color: #ffffff;
+}
+
+.navButton:hover {
+    background-color: #ffffff;
+    color: #00701a;
+}
+
+
+#carouselExampleIndicators {
+    width: 40%;
+}
+
+.d-block {
+    max-width: 100%;
+    height: auto;
+}
+
+.articleCard {
+    margin: 0 0 10px 0;
+}
+
+#articleImg {
+    width: 200px;
+    height: 160px;
+}
+
+.dallasHeader {
+    color: #76d275;
+    font-family: 'Merriweather', serif;
+    font-size: 18px;
+}
+
+#gramMsg {
+    text-align: center;
 }
