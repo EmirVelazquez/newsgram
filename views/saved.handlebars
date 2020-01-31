@@ -1,0 +1,28 @@
+<br>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card pathTitle">
+            <div class="card-header pathHeader">
+                Saved Articles
+            </div>
+            <div class="card-body">
+                <p id="gramMsg">Here you will find all of the articles you have saved. Additionally, you can add notes
+                    or delete notes
+                    for all your saved articles as well as entirely delete an article.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-md-12">
+        <!-- Saves Articles Card Section Below -->
+        {{#each articles}}
+        {{#if saved}}
+        {{> articleCard/article}}
+        {{/if}}
+        {{/each}}
+        <!--  Saved Articles Card Section Above -->
+    </div>
+</div>

@@ -10,9 +10,19 @@
                     <img src="{{image}}" class="rounded float-left" id="articleImg" alt="{{title}}">
                 </div>
                 <div class="col-md-6">
+                    {{#unless saved}}
+                    <button class="btn float-right navButton" data-toggle="tooltip" data-placement="bottom"
+                        title="Read Article">Save Article</button>
+                    {{/unless}}
                     <a href="http://dallasnews.com{{link}}" target="_blank"><button class="btn float-right navButton"
                             data-toggle="tooltip" data-placement="bottom" title="Read Article"><i
                                 class="fab fa-readme fa-2x"></i></button></a>
+                    {{#if saved}}
+                    <button class="btn float-right navButton" data-toggle="tooltip" data-placement="bottom"
+                        title="Read Article">Delete From Saved</button>
+                    <button class="btn float-right navButton" data-toggle="tooltip" data-placement="bottom"
+                        title="Read Article">Article Notes</button>
+                    {{/if}}
                 </div>
             </div>
         </div>
