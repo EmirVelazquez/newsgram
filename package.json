@@ -24,6 +24,7 @@
     "express": "^4.17.1",
     "express-handlebars": "^3.1.0",
     "handlebars": "^4.5.3",
+    "mongojs": "^3.1.0",
     "mongoose": "^5.8.10",
     "morgan": "^1.9.1"
   }

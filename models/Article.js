@@ -21,8 +21,7 @@ var ArticleSchema = new Schema({
         required: true
     },
     saved: {
-        type: Boolean,
-        default: false
+        type: Boolean
     },
     // `note` is an object that stores a Note id
     // The ref property links the ObjectId to the Note model

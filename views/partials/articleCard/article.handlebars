@@ -6,22 +6,22 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-6">
-                    <h5 class="card-title">{{title}}</h5>
-                    <img src="{{image}}" class="rounded float-left" id="articleImg" alt="{{title}}">
+                    <h5 class="card-title">{{this.title}}</h5>
+                    <img src="{{this.image}}" class="rounded float-left" id="articleImg" alt="{{this.title}}">
                 </div>
                 <div class="col-md-6">
-                    <a href="http://dallasnews.com{{link}}" target="_blank"><button class="btn float-right navButton"
-                            data-toggle="tooltip" data-placement="bottom" title="Read Article"><i
-                                class="fab fa-readme fa-2x"></i></button></a>
+                    <a href="http://dallasnews.com{{this.link}}" target="_blank"><button
+                            class="btn float-right navButton" data-toggle="tooltip" data-placement="bottom"
+                            title="Read Article"><i class="fab fa-readme fa-2x"></i></button></a>
                     {{#unless saved}}
-                    <button class="btn float-right navButton" data-toggle="tooltip" data-placement="bottom"
-                        title="Save Article"><i class="far fa-save fa-2x"></i></button>
+                    <button class="btn float-right navButton saveArticle" data-toggle="tooltip" data-id="{{this._id}}"
+                        data-placement="bottom" title="Save Article"><i class="far fa-save fa-2x"></i></button>
                     {{/unless}}
                     {{#if saved}}
-                    <button class="btn float-right navButton" data-toggle="tooltip" data-placement="bottom"
-                        title="Delete Article"><i class="far fa-trash-alt fa-2x"></i></button>
-                    <button class="btn float-right navButton" data-toggle="tooltip" data-placement="bottom"
-                        title="Notes"><i class="far fa-sticky-note fa-2x"></i></button>
+                    <button class="btn float-right navButton" data-toggle="tooltip" data-id="{{this._id}}"
+                        data-placement="bottom" title="Delete Article"><i class="far fa-trash-alt fa-2x"></i></button>
+                    <button class="btn float-right navButton" data-toggle="tooltip" data-id="{{this._id}}"
+                        data-placement="bottom" title="Notes"><i class="far fa-sticky-note fa-2x"></i></button>
                     {{/if}}
                 </div>
             </div>

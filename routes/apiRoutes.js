@@ -5,6 +5,9 @@ var db = require("../models");
 var axios = require("axios");
 var cheerio = require("cheerio");
 
+// Requiring mongojs
+var mongojs = require("mongojs");
+
 
 module.exports = function (app) {
     // A GET route for scraping the Dallas Morning News website
@@ -49,7 +52,7 @@ module.exports = function (app) {
         });
     });
 
-    // A GET route to grab all of the articles then using an empty document to delete all of them 
+    // A GET route to grab all of the articles then using an empty filter to delete all of them 
     app.get("/clearArticles", function (req, res) {
         db.Article.deleteMany({})
             .then(function () {
@@ -58,6 +61,19 @@ module.exports = function (app) {
             .catch(function (err) {
                 // If an error occurrs, log it
                 console.log(err);
+            });
+        res.end();
+    });
+
+    // A POST route for saving an article in the database
+    app.post("/savearticle/:id", function (req, res) {
+        db.Article.updateOne({ _id: mongojs.ObjectId(req.params.id) }, { $set: { saved: true } })
+            .then(function (dbArticle) {
+                res.json(dbArticle)
+            })
+            .catch(function (err) {
+                // If an error occurs, send the error back to the client
+                res.json(err);
             });
         res.end();
     });

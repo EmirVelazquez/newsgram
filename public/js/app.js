@@ -18,11 +18,13 @@ $(document).ready(function () {
     //============================NAV LOGIC ABOVE=====================================//
 
     //=============================MAIN FUNCTIONS START===============================//
-    // Global variables
-    const fetchBtn = $(".fetchArticles");
-    const deleteBtn = $(".deleteArticles");
-    const articleBox = $(".articleContainer");
+    // Global variables for jQuery references
+    const fetchBtn = $(".fetchArticles"); // Btns for scraping data
+    const deleteBtn = $(".deleteArticles"); // Btns for deleting articles
+    const articleBox = $(".articleContainer"); //Div where articles are held
+    const saveArticle = $(".saveArticle"); // Btn for saving an article
 
+    // On click event handler scrapes data from DMN website
     fetchBtn.on("click", function () {
         articleBox.show();
 
@@ -34,12 +36,27 @@ $(document).ready(function () {
         });
     });
 
+    //On click event handler deletes all of the articles from the database
     deleteBtn.on("click", function () {
         articleBox.hide();
 
         $.ajax({
             method: "GET",
             url: "/clearArticles"
+        }).then(function () {
+            location.reload();
+        });
+    });
+
+    // On click event handler for saving an article in the database
+    saveArticle.on("click", function () {
+        // Grabbing the id here associated with the article from the save button
+        var articleId = $(this).attr("data-id");
+        console.log(articleId);
+
+        $.ajax({
+            method: "POST",
+            url: "/savearticle/" + articleId
         }).then(function () {
             location.reload();
         });
