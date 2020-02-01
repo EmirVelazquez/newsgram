@@ -44,6 +44,7 @@ module.exports = function (app) {
                         // If an error occurred, log it
                         console.log(err);
                     });
+                res.end();
             });
         });
     });
@@ -58,6 +59,7 @@ module.exports = function (app) {
                 // If an error occurrs, log it
                 console.log(err);
             });
+        res.end();
     });
 
     // Route for getting all Articles from the db

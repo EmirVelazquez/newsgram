@@ -9,7 +9,7 @@
     <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link active" id="homeLink" href="/">Home</a>
+                <a class="nav-link" id="homeLink" href="/">Home</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="savedLink" href="/saved">Saved</a>
@@ -18,14 +18,12 @@
         <!-- 'justify-content-between' allows for these to be on the far right side -->
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="/scrape"><button type="button" class="btn navButton" data-toggle="tooltip"
-                        data-placement="bottom" title="Get New Articles"><i
-                            class="fas fa-search-plus fa-lg"></i></button></a>
+                <button type="button" class="btn navButton fetchArticles" id="plusBtn" data-toggle="tooltip"
+                    data-placement="bottom" title="Get New Articles"><i class="fas fa-plus"></i></button>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/clearArticles"><button type="button" class="btn navButton"
-                        data-toggle="tooltip" data-placement="bottom" title="Clear All Articles"><i
-                            class="fas fa-search-minus fa-lg"></i></button></a>
+                <button type="button" class="btn navButton deleteArticles" id="minusBtn" data-toggle="tooltip"
+                    data-placement="bottom" title="Clear All Articles"><i class="fas fa-minus"></i></button>
             </li>
         </ul>
     </div>

@@ -6,7 +6,7 @@
                 Our Mission
             </div>
             <div class="card-body">
-                <p id="gramMsg">At Newsgram, we believe in efficiency and simple design without all the unecessary
+                <p class="gramMsg">At Newsgram, we believe in efficiency and simple design without all the unecessary
                     clutter of
                     modern web
                     applications. Here you will find the most up to date local DFW Articles thanks to The Dallas Morning
@@ -14,12 +14,16 @@
                     We
                     scrape the top news you want to see and deliver them straight to your hands.
                 </p>
+                <p class="gramMsg">
+                    <button class="btn navButton fetchArticles">Get New Articles</button>
+                    <button class="btn navButton deleteArticles">Delete All Articles</button>
+                </p>
             </div>
         </div>
     </div>
 </div>
 <br>
-<div class="row">
+<div class="row" class="articleContainer">
     <div class="col-md-12">
         <!-- Article Card Section Below -->
         {{#each articles}}
