@@ -23,6 +23,7 @@ $(document).ready(function () {
     const deleteBtn = $(".deleteArticles"); // Btns for deleting articles
     const articleBox = $(".articleContainer"); //Div where articles are held
     const saveArticle = $(".saveArticle"); // Btn for saving an article
+    const removeSaved = $(".removeSaved"); // Btn for removing a saved article
 
     // On click event handler scrapes data from DMN website
     fetchBtn.on("click", function () {
@@ -51,12 +52,26 @@ $(document).ready(function () {
     // On click event handler for saving an article in the database
     saveArticle.on("click", function () {
         // Grabbing the id here associated with the article from the save button
-        var articleId = $(this).attr("data-id");
+        let articleId = $(this).attr("data-id");
         console.log(articleId);
 
         $.ajax({
             method: "POST",
             url: "/savearticle/" + articleId
+        }).then(function () {
+            location.reload();
+        });
+    });
+
+    // On click event handler for removing a saved article from being saved
+    removeSaved.on("click", function () {
+        // Grabbing the id here associated with the article from the save button
+        let articleId = $(this).attr("data-id");
+        console.log(articleId);
+
+        $.ajax({
+            method: "POST",
+            url: "/removesaved/" + articleId
         }).then(function () {
             location.reload();
         });

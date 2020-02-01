@@ -78,6 +78,19 @@ module.exports = function (app) {
         res.end();
     });
 
+    // A POST route for deleting a saved article from being saved in the database
+    app.post("/removesaved/:id", function (req, res) {
+        db.Article.updateOne({ _id: mongojs.ObjectId(req.params.id) }, { $set: { saved: false } })
+            .then(function (dbArticle) {
+                res.json(dbArticle)
+            })
+            .catch(function (err) {
+                // If an error occurs, send the error back to the client
+                res.json(err);
+            });
+        res.end();
+    });
+
     // Route for getting all Articles from the db
     app.get("/articles", function (req, res) {
         // TODO: Finish the route so it grabs all of the articles
