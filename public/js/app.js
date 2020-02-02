@@ -9,10 +9,13 @@ $(document).ready(function () {
     //============================NAV LOGIC BELOW=====================================//
     // Global variables
     const urlPath = window.location.href;
-    const homeUrl = "http://localhost:3000/";
-    const savedUrl = "http://localhost:3000/saved";
+    const homeUrl = "http://localhost:3000/" || "https://blooming-beach-68349.herokuapp.com/";
+    const savedUrl = "http://localhost:3000/saved" || "https://blooming-beach-68349.herokuapp.com/saved";
     const homeLink = $("#homeLink");
     const savedLink = $("#savedLink");
+    console.log(urlPath);
+    console.log(homeUrl);
+    console.log(savedUrl);
     // Call for color links function
     colorLinks();
     //============================NAV LOGIC ABOVE=====================================//
@@ -93,10 +96,10 @@ $(document).ready(function () {
 
     function colorLinks() {
         // If statement for coloring the nav links based on the path user is on
-        if (urlPath === homeUrl) {
+        if (homeUrl === urlPath) {
             savedLink.removeClass("activeLink");
             homeLink.addClass("activeLink");
-        } else if (urlPath === savedUrl) {
+        } else if (savedUrl === urlPath) {
             homeLink.removeClass("activeLink");
             savedLink.addClass("activeLink");
         } else {
