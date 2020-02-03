@@ -116,6 +116,7 @@ body {
 .articleCard {
     margin: 0 6px 25px 6px;
     box-shadow: 5px 6px 6px  #616161;
+    background-color: #1c2218;
 }
 
 #articleImg {
@@ -123,7 +124,8 @@ body {
     height: 160px;
 }
 
-.dallasHeader {
+.dallasHeader, .modal-title {
+    background-color: #272727;
     color: #76d275;
     font-family: 'Merriweather', serif;
     font-size: 18px;
@@ -141,6 +143,7 @@ body {
 
 .pathHeader {
     color: #76d275;
+    background-color: #272727;
     font-family: 'Merriweather', serif;
     font-size: 18px;
     text-align: center;
@@ -148,4 +151,21 @@ body {
 
 .articleContainer {
     display: none;
+}
+
+.modal-header, .modal-footer {
+    border: none;
+}
+
+.modalDiv {
+    background-color: #272727;
+    box-shadow: 0 0 10px  #616161;
+}
+
+.modal-body, .modal-footer{
+    background-color: #1c2218;
+}
+
+.fa-times-circle {
+    color: #ffffff;
 }

@@ -9,13 +9,11 @@ $(document).ready(function () {
     //============================NAV LOGIC BELOW=====================================//
     // Global variables
     const urlPath = window.location.href;
-    const homeUrl = "http://localhost:3000/" || "https://blooming-beach-68349.herokuapp.com/";
-    const savedUrl = "http://localhost:3000/saved" || "https://blooming-beach-68349.herokuapp.com/saved";
+    // Make sure to update on production version
+    const homeUrl = "https://blooming-beach-68349.herokuapp.com/"; // "http://localhost:3000/";  
+    const savedUrl = "https://blooming-beach-68349.herokuapp.com/saved"; // "http://localhost:3000/saved";  
     const homeLink = $("#homeLink");
     const savedLink = $("#savedLink");
-    console.log(urlPath);
-    console.log(homeUrl);
-    console.log(savedUrl);
     // Call for color links function
     colorLinks();
     //============================NAV LOGIC ABOVE=====================================//
@@ -27,6 +25,7 @@ $(document).ready(function () {
     const articleBox = $(".articleContainer"); //Div where articles are held
     const saveArticle = $(".saveArticle"); // Btn for saving an article
     const removeSaved = $(".removeSaved"); // Btn for removing a saved article
+    const saveNote = $(".saveNote") // Btn for saving a note for an article
 
     // On click event handler scrapes data from DMN website
     fetchBtn.on("click", function () {
@@ -56,7 +55,6 @@ $(document).ready(function () {
     saveArticle.on("click", function () {
         // Grabbing the id here associated with the article from the save button
         let articleId = $(this).attr("data-id");
-        console.log(articleId);
 
         $.ajax({
             method: "POST",
@@ -70,7 +68,6 @@ $(document).ready(function () {
     removeSaved.on("click", function () {
         // Grabbing the id here associated with the article from the save button
         let articleId = $(this).attr("data-id");
-        console.log(articleId);
 
         $.ajax({
             method: "POST",
@@ -80,7 +77,13 @@ $(document).ready(function () {
         });
     });
 
+    // On click event handler for saving a note for an article
+    saveNote.on("click", function () {
+        $("#noteModal").modal();
+        let articleId = $(this).attr("data-id");
+        console.log(articleId);
 
+    })
 
 
 
