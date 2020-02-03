@@ -169,3 +169,7 @@ body {
 .fa-times-circle {
     color: #ffffff;
 }
+
+.formWarning {
+    color: red;
+}

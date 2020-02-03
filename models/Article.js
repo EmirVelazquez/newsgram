@@ -16,21 +16,22 @@ var ArticleSchema = new Schema({
         type: String,
         required: true
     },
+    // `image` is not required so if the article doesn't have an image it will default to this jpg
     image: {
         type: String,
-        required: true
+        default: "https://hck2.com/sites/default/files/styles/large_client_logo/public/_3-Logo%20large%20thumbDMN_0.jpg?itok=KsbsMlFY"
     },
+    // `saved` boolean will default to false, used for when a user saves an article
     saved: {
         type: Boolean,
         default: false
     },
-    // `note` is an object that stores a Note id
-    // The ref property links the ObjectId to the Note model
-    // This allows us to populate the Article with an associated Note
-    note: {
+    // `note` is an array that stores a Note id and the ref property links the ObjectId of the note and places in this array
+    // This allows to populate the Article note modal with all the associated notes
+    note: [{
         type: Schema.Types.ObjectId,
         ref: "Note"
-    }
+    }]
 });
 
 // This creates our model from the above schema, using mongoose's model method

@@ -25,7 +25,10 @@ $(document).ready(function () {
     const articleBox = $(".articleContainer"); //Div where articles are held
     const saveArticle = $(".saveArticle"); // Btn for saving an article
     const removeSaved = $(".removeSaved"); // Btn for removing a saved article
-    const saveNote = $(".saveNote") // Btn for saving a note for an article
+    const noteButton = $(".noteButton") // Btn for opening the note modal for an article
+    const formWarning = $(".formWarning"); // P tag to hold form warning
+    const yesSave = $(".yesSave"); // Btn for saving a note for an article
+    var noteInProgress = []; // Flag var set here, being used to submit notes to an article by it's ID
 
     // On click event handler scrapes data from DMN website
     fetchBtn.on("click", function () {
@@ -77,13 +80,41 @@ $(document).ready(function () {
         });
     });
 
-    // On click event handler for saving a note for an article
-    saveNote.on("click", function () {
+    // On click event handler for opening an articles note modal
+    noteButton.on("click", function () {
+        formWarning.text("");
         $("#noteModal").modal();
         let articleId = $(this).attr("data-id");
-        console.log(articleId);
+        noteInProgress.push(articleId);
+        console.log("Article ID of note in progress: " + noteInProgress);
+        // On click event handler for submitting article note to the database
+        yesSave.on("click", function () {
+            let noteData = $(".form-control").val()
 
-    })
+            if (noteData === "") {
+                formWarning.text("Please make sure your form is not empty.");
+            } else {
+                $.ajax({
+                    method: "POST",
+                    url: "/articles/" + noteInProgress,
+                    data: {
+                        body: noteData
+                    }
+                }).then(function (data) {
+                    console.log(data);
+                    console.log("New Note submitted for this article:" + noteInProgress);
+                });
+                formWarning.text("");
+                $(".form-control").val("");
+            }
+        });
+    });
+
+    // Clears out the articleId flag being used to push new notes for an article when modal is closed
+    $("#noteModal").on("hidden.bs.modal", function (event) {
+        noteInProgress = [];
+        formWarning.text("");
+    });
 
 
 

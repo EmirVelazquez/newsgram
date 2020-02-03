@@ -78,7 +78,7 @@ module.exports = function (app) {
         res.end();
     });
 
-    // A POST route for deleting a saved article from being saved in the database
+    // A POST route for deleting a saved article from being `saved` in the database
     app.post("/removesaved/:id", function (req, res) {
         db.Article.updateOne({ _id: mongojs.ObjectId(req.params.id) }, { $set: { saved: false } })
             .then(function (dbArticle) {
@@ -92,20 +92,20 @@ module.exports = function (app) {
     });
 
     // Route for getting all Articles from the db
-    app.get("/articles", function (req, res) {
-        // TODO: Finish the route so it grabs all of the articles
-        db.Article.find({})
-            .then(function (dbArticle) {
-                // If all Notes are successfully found, send them back to the client
-                res.json(dbArticle);
-            })
-            .catch(function (err) {
-                // If an error occurs, send the error back to the client
-                res.json(err);
-            });
-    });
+    // app.get("/articles", function (req, res) {
+    //     // TODO: Finish the route so it grabs all of the articles
+    //     db.Article.find({})
+    //         .then(function (dbArticle) {
+    //             // If all Notes are successfully found, send them back to the client
+    //             res.json(dbArticle);
+    //         })
+    //         .catch(function (err) {
+    //             // If an error occurs, send the error back to the client
+    //             res.json(err);
+    //         });
+    // });
 
-    // Route for grabbing a specific Article by id, populate it with it's note
+    // A GET Route for grabbing a specific Article by id, populate it with it's note
     app.get("/articles/:id", function (req, res) {
         // TODO
         // ====
@@ -133,7 +133,7 @@ module.exports = function (app) {
         db.Note.create(req.body)
             .then(function (dbNote) {
                 // Since our mongoose query returns a promise, we can chain another `.then` which receives the result of the query
-                return db.Article.findOneAndUpdate({ _id: req.params.id }, { note: dbNote.id }, { new: true });
+                return db.Article.updateOne({ _id: req.params.id }, { $push: { note: dbNote.id } }, { new: true });
             })
             .then(function (dbArticle) {
                 // If the User was updated successfully, send it back to the client
