@@ -28,8 +28,8 @@ $(document).ready(function () {
     const noteButton = $(".noteButton") // Btn for opening the note modal for an article
     const formWarning = $(".formWarning"); // P tag to hold form warning
     const yesSave = $(".yesSave"); // Btn for saving a note for an article
-    const noteRow = $(".noteRow"); // Div where notes are displayed
-    var noteInProgress = []; // Flag var set here, being used to submit notes to an article by it's ID
+    const noteBox = $(".noteBox"); // Div where notes are displayed
+    var artInProgress = []; // Flag var set here, being used to submit notes to an article by it's ID
 
     // On click event handler scrapes data from DMN website
     fetchBtn.on("click", function () {
@@ -94,7 +94,10 @@ $(document).ready(function () {
         $("#noteModal").modal();
         // Get the article's _id from the note button data-id, then push into the flag being used
         let articleId = $(this).attr("data-id");
-        noteInProgress.push(articleId);
+        artInProgress.push(articleId);
+
+        // Function call for displaying any existing notes associated with this article
+        existingNotes();
 
         // On click event handler for submitting article note to the database
         yesSave.on("click", function () {
@@ -102,17 +105,20 @@ $(document).ready(function () {
         });
     });
 
+    // On click event handler for deleting one note for an article
+    $(".deleteNote").on("click", function () {
+        console.log("Working now!");
+    });
+
     // Clears out the articleId flag being used to push new notes for an article when modal is closed
     $("#noteModal").on("hidden.bs.modal", function (event) {
         // Empty the flag var being used
-        noteInProgress = [];
+        artInProgress = [];
         // Empty the notes from the note modal
-        noteRow.empty();
+        noteBox.empty();
         // Empty the text from the form warning div
         formWarning.text("");
     });
-
-
 
 
 
@@ -140,14 +146,14 @@ $(document).ready(function () {
 
     function newNoteEntered() {
         // Local 
-        let noteData = $(".form-control").val()
+        let noteData = $(".form-control").val();
         // If statement to verify there is text in the box before posting data
         if (noteData === "") {
             formWarning.text("Please make sure your form is not empty.");
         } else {
             $.ajax({
                 method: "POST",
-                url: "/newNote/" + noteInProgress,
+                url: "/newNote/" + artInProgress,
                 data: {
                     body: noteData
                 }
@@ -156,21 +162,90 @@ $(document).ready(function () {
                 // After the note is pushed, request all of the notes and append only the newest
                 $.ajax({
                     method: "GET",
-                    url: "/articleNotes/" + noteInProgress
+                    url: "/articleNotes/" + artInProgress
                 }).then(function (dbArticle) {
                     let newNote = dbArticle.note[dbArticle.note.length - 1];
-                    console.log(newNote);
+
                     // Place new note text inside note row
-                    noteRow.append(
-                        "<p>" + newNote.body + "<button type='button' data-id='" + newNote._id + "' class='btn float-right deleteNote'><i class='far fa-trash-alt'></i></button ></p>");
+                    let noteRow = $("<p></p>");
+                    noteRow.text(newNote.body);
+                    let noteButton = $("<button></button>");
+                    noteButton.addClass("btn float-right deleteNote");
+                    noteButton.attr("data-id", newNote._id);
+                    noteButton.append("<i class='far fa-trash-alt'></i>");
+                    noteRow.append(noteButton);
+                    noteBox.append(noteRow);
+                    // Clear out text box after submission
                     formWarning.text("");
+
+                    // Calling the delete function, in case user wants to delete an existing note or the new one
+                    deleteOneNote();
+
                 });
             });
             // Empty the text box
             $(".form-control").val("");
-        }
-    }
+        };
 
+    };
 
+    function existingNotes() {
+
+        $.ajax({
+            method: "GET",
+            url: "/articleNotes/" + artInProgress
+        }).then(function (articleData) {
+            // For loop to iterate through any existing note, if any does exist. then append into the modal
+            for (var i = 0; i < articleData.note.length; i++) {
+
+                // Place existing note text inside note row
+                let noteRow = $("<p></p>");
+                noteRow.text(articleData.note[i].body);
+                let noteButton = $("<button></button>");
+                noteButton.addClass("btn float-right deleteNote");
+                noteButton.attr("data-id", articleData.note[i]._id);
+                noteButton.append("<i class='far fa-trash-alt'></i>");
+                noteRow.append(noteButton);
+                noteBox.append(noteRow);
+            }
+
+            // Calling the delete function, in case user wants to delete an existing note
+            deleteOneNote();
+
+        });
+    };
+
+    function deleteOneNote() {
+        // On click event handler for deleting one note for an article
+        $(".deleteNote").on("click", function () {
+            // Local grab of the _id for this note
+            let noteId = $(this).attr("data-id");
+            console.log(noteId);
+            console.log(artInProgress);
+
+            // First we make a call to delete the note only from the notes collection
+            $.ajax({
+                method: "GET",
+                url: "/deleteNote/" + noteId
+            }).then(function (noteData) {
+                console.log(noteData);
+                console.log("Note deleted:" + noteId);
+                // Empty the notes from the note modal
+                noteBox.empty();
+            });
+
+            // Lastly, call to delete the note from the article collection where the noteId matches an Id from all each documents `note ` array
+            $.ajax({
+                method: "GET",
+                url: "/deleteArticleNote/" + noteId
+            }).then(function (data) {
+                console.log(data);
+                // Empty the notes from the note modal
+                noteBox.empty();
+                // Display the update list of notes 
+                existingNotes();
+            });
+        });
+    };
     //============================HELPER FUNCTIONS END=================================//
 });

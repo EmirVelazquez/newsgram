@@ -104,6 +104,7 @@ module.exports = function (app) {
         res.end();
     });
 
+
     // A GET Route for grabbing a specific Article by id, populate it with it's note
     app.get("/articleNotes/:id", function (req, res) {
         // Finds one article using the req.params.id, populates all the notes inside "note" arr
@@ -117,7 +118,30 @@ module.exports = function (app) {
             })
     });
 
-    // Route for saving/updating an Article's associated Note
+    // A GET Route for deleting a single note in the note collection
+    app.get("/deleteNote/:id", function (req, res) {
+        db.Note.findOneAndDelete({ _id: mongojs.ObjectId(req.params.id) })
+            .then(function (dbNote) {
+                res.json(dbNote);
+            })
+            .catch(function (err) {
+                // If an error occurrs, log it
+                console.log(err);
+            });
+    });
+
+    // A POST route to delete an article's associated Note in the article collection
+    app.get("/deleteArticleNote/:id", function (req, res) {
+        db.Article.updateOne({}, { $pull: { note: { $in: [req.params.id] } } }, { multi: true })
+            .then(function (dbArticle) {
+                res.json(dbArticle);
+            })
+            .catch(function (err) {
+                res.json(err);
+            });
+    });
+
+    // A POST Route for saving an article's associated Note
     app.post("/newNote/:id", function (req, res) {
         // Save new note to the Notes collection, finds an article from the req.params.id
         // then updates it's "note" property with the _id of the new note

@@ -162,7 +162,7 @@ body {
     box-shadow: 0 0 10px  #616161;
 }
 
-.modal-body, .modal-footer{
+.modal-body, .modal-footer {
     background-color: #1c2218;
 }
 
@@ -174,13 +174,13 @@ body {
     color: red;
 }
 
-.deleteNote {
+.deleteNote, .removeSaved, .deleteArticles {
     background-color: red;
     color: #ffffff;
     margin: 0 5px 0 0;
 }
 
-.deleteNote:hover {
+.deleteNote:hover, .removeSaved:hover, .deleteArticles:hover {
     background-color: #ffffff;
     color: rgb(90, 2, 2);
 }
