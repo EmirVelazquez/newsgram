@@ -91,27 +91,22 @@ module.exports = function (app) {
         res.end();
     });
 
-    // Route for getting all Articles from the db
-    // app.get("/articles", function (req, res) {
-    //     // TODO: Finish the route so it grabs all of the articles
-    //     db.Article.find({})
-    //         .then(function (dbArticle) {
-    //             // If all Notes are successfully found, send them back to the client
-    //             res.json(dbArticle);
-    //         })
-    //         .catch(function (err) {
-    //             // If an error occurs, send the error back to the client
-    //             res.json(err);
-    //         });
-    // });
+    // A GET route to grab all of the notes then using an empty filter to delete all of them 
+    app.get("/clearNotes", function (req, res) {
+        db.Note.deleteMany({})
+            .then(function () {
+                console.log("All notes Deleted");
+            })
+            .catch(function (err) {
+                // If an error occurrs, log it
+                console.log(err);
+            });
+        res.end();
+    });
 
     // A GET Route for grabbing a specific Article by id, populate it with it's note
-    app.get("/articles/:id", function (req, res) {
-        // TODO
-        // ====
-        // Finish the route so it finds one article using the req.params.id,
-        // and run the populate method with "note",
-        // then responds with the article with the note included
+    app.get("/articleNotes/:id", function (req, res) {
+        // Finds one article using the req.params.id, populates all the notes inside "note" arr
         db.Article.findOne({ _id: req.params.id })
             .populate("note")
             .then(function (dbArticle) {
@@ -123,20 +118,16 @@ module.exports = function (app) {
     });
 
     // Route for saving/updating an Article's associated Note
-    app.post("/articles/:id", function (req, res) {
-        // TODO
-        // ====
-        // save the new note that gets posted to the Notes collection
-        // then find an article from the req.params.id
-        // and update it's "note" property with the _id of the new note
-        // Create a new Note in the db
+    app.post("/newNote/:id", function (req, res) {
+        // Save new note to the Notes collection, finds an article from the req.params.id
+        // then updates it's "note" property with the _id of the new note
         db.Note.create(req.body)
             .then(function (dbNote) {
                 // Since our mongoose query returns a promise, we can chain another `.then` which receives the result of the query
                 return db.Article.updateOne({ _id: req.params.id }, { $push: { note: dbNote.id } }, { new: true });
             })
             .then(function (dbArticle) {
-                // If the User was updated successfully, send it back to the client
+                // If the article was updated successfully, send it back to the client
                 res.json(dbArticle);
             })
             .catch(function (err) {

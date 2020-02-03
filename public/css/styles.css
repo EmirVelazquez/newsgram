@@ -173,3 +173,14 @@ body {
 .formWarning {
     color: red;
 }
+
+.deleteNote {
+    background-color: red;
+    color: #ffffff;
+    margin: 0 5px 0 0;
+}
+
+.deleteNote:hover {
+    background-color: #ffffff;
+    color: rgb(90, 2, 2);
+}
