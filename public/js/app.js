@@ -105,10 +105,6 @@ $(document).ready(function () {
         });
     });
 
-    // On click event handler for deleting one note for an article
-    $(".deleteNote").on("click", function () {
-        console.log("Working now!");
-    });
 
     // Clears out the articleId flag being used to push new notes for an article when modal is closed
     $("#noteModal").on("hidden.bs.modal", function (event) {
@@ -158,7 +154,6 @@ $(document).ready(function () {
                     body: noteData
                 }
             }).then(function (data) {
-                console.log(data);
                 // After the note is pushed, request all of the notes and append only the newest
                 $.ajax({
                     method: "GET",
@@ -220,16 +215,15 @@ $(document).ready(function () {
         $(".deleteNote").on("click", function () {
             // Local grab of the _id for this note
             let noteId = $(this).attr("data-id");
-            console.log(noteId);
-            console.log(artInProgress);
+
+
 
             // First we make a call to delete the note only from the notes collection
             $.ajax({
                 method: "GET",
                 url: "/deleteNote/" + noteId
             }).then(function (noteData) {
-                console.log(noteData);
-                console.log("Note deleted:" + noteId);
+
                 // Empty the notes from the note modal
                 noteBox.empty();
             });
@@ -239,7 +233,7 @@ $(document).ready(function () {
                 method: "GET",
                 url: "/deleteArticleNote/" + noteId
             }).then(function (data) {
-                console.log(data);
+
                 // Empty the notes from the note modal
                 noteBox.empty();
                 // Display the update list of notes 
