@@ -5,25 +5,36 @@
     <div class="card-body">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-6">
-                    <h5 class="card-title">{{this.title}}</h5>
+                <div class="col-sm-12">
+                    <div class="titleContainer float-left">
+                        <h5 class="card-title">{{this.title}}</h5>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-2">
                     <img src="{{this.image}}" class="rounded float-left" id="articleImg" alt="{{this.title}}">
                 </div>
-                <div class="col-md-6">
-                    {{#if saved}}
-                    <button class="btn float-right removeSaved" data-toggle="tooltip" data-id="{{this._id}}"
-                        data-placement="bottom" title="Remove From Saved"><i
-                            class="far fa-trash-alt fa-2x"></i></button>
-                    <button class="btn float-right navButton noteButton" data-toggle="tooltip" data-id="{{this._id}}"
-                        data-placement="bottom" title="Notes"><i class="far fa-sticky-note fa-2x"></i></button>
-                    {{/if}}
-                    <a href="http://dallasnews.com{{this.link}}" target="_blank"><button
-                            class="btn float-right navButton" data-toggle="tooltip" data-placement="bottom"
-                            title="Read Article"><i class="fab fa-readme fa-2x"></i></button></a>
-                    {{#unless saved}}
-                    <button class="btn float-right navButton saveArticle" data-toggle="tooltip" data-id="{{this._id}}"
-                        data-placement="bottom" title="Save Article"><i class="far fa-save fa-2x"></i></button>
-                    {{/unless}}
+                <div class="col-md-10">
+                    <div class="buttonContainer">
+                        <a href="http://dallasnews.com{{this.link}}" target="_blank"><button
+                                class="btn float-right navButton" data-toggle="tooltip" data-placement="left"
+                                title="Read Article"><i class="fab fa-readme fa-2x"></i></button></a>
+                        {{#if saved}}
+                        <button class="btn float-right navButton noteButton" data-toggle="tooltip"
+                            data-id="{{this._id}}" data-placement="left" title="Notes"><i
+                                class="far fa-sticky-note fa-2x"></i></button>
+                        <button class="btn float-right removeSaved" data-toggle="tooltip" data-id="{{this._id}}"
+                            data-placement="left" title="Remove From Saved">
+                            <i class="far fa-trash-alt fa-2x"></i></button>
+                        {{/if}}
+                        {{#unless saved}}
+                        <button class="btn float-right navButton saveArticle" data-toggle="tooltip"
+                            data-id="{{this._id}}" data-placement="left" title="Save Article"><i
+                                class="far fa-save fa-2x"></i></button>
+                        {{/unless}}
+                    </div>
                 </div>
             </div>
         </div>

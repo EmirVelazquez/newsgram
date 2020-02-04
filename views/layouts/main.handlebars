@@ -18,11 +18,13 @@
 </head>
 
 <body>
-    {{> navBar/nav}}
-    <div class="container-fluid" id="mainContainer">
-        {{{body}}}
+    <div id="mainContainer">
+        {{> navBar/nav}}
+        <div class="container-fluid" id="bodyContainer">
+            {{{body}}}
+        </div>
+        {{> footBar/footer}}
     </div>
-    {{> footBar/footer}}
     <!-- Jquery CDN here -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>

@@ -1,32 +1,57 @@
-/* Keep footer at the bottom */
+/* Keep footer at bottom Start */
 * {
-    margin: 0;
-    padding: 0;
+ box-sizing: border-box;
+}
+
+*:before,
+*:after {
+ box-sizing: border-box;
 }
 
 html, body {
-    height: 100%;
+ height: 100%;
+ position: relative;
 }
 
 #mainContainer {
-    min-height: 100%;
+ min-height: 100vh; /* will cover the 100% of viewport */
+ overflow: hidden;
+ display: block;
+ position: relative;
+ padding-bottom: 140px; /* height of footer */
 }
 
-#main {
-    overflow: auto;
-    padding-bottom: 100px;
+footer {
+ position: absolute;
+ bottom: 0;
+ width: 100%;
+ height: 140px;
+ background-color: #272727;
+ color: white;
 }
 
-#footer {
-    background-color: #272727;
-    position: relative;
-    height: 100px;
-    margin-top: -100px;
-    width: 100%;
-    clear: both;
-    color: white;
+#footText {
+    text-align: center;
 }
-/* Keep footer at the bottom */
+
+#photoCredit {
+    float: right;
+}
+
+.footLogo {
+    color: #ffffff;
+}
+
+.footLogo:hover {
+    color: #ffffff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#linkedInLogo {
+    margin-left: 15px;
+}
+/* Keep footer at the bottom end */
 
 .fa-newspaper {
     color: #43a047;
@@ -47,6 +72,12 @@ body {
     font-family: 'Merriweather', serif;
     font-size: 30px;
     color: #ffffff;
+}
+
+#navBar { /* This will make the navBar `sticky` so when user scrolls it follows the scrolling */
+    position: fixed;
+    width: 100%;
+    z-index: 1;
 }
 
 .nav-link {
@@ -122,6 +153,7 @@ body {
 #articleImg {
     width: 200px;
     height: 160px;
+    border: 1px solid #ffffff;
 }
 
 .dallasHeader, .modal-title {
@@ -183,4 +215,24 @@ body {
 .deleteNote:hover, .removeSaved:hover, .deleteArticles:hover {
     background-color: #ffffff;
     color: rgb(90, 2, 2);
+}
+
+.buttonContainer {
+    display: flex;
+    align-items: flex-end;
+    margin-top: 110px;
+}
+
+@media screen and (max-width: 767px) {
+    .buttonContainer {
+        margin-top: 20px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .buttonContainer {
+        float: right;
+    }
 }
