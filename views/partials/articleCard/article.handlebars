@@ -19,19 +19,19 @@
                 <div class="col-md-10">
                     <div class="buttonContainer">
                         <a href="http://dallasnews.com{{this.link}}" target="_blank"><button
-                                class="btn float-right navButton" data-toggle="tooltip" data-placement="left"
+                                class="btn float-right navButton" data-toggle="tooltip" data-placement="top"
                                 title="Read Article"><i class="fab fa-readme fa-2x"></i></button></a>
                         {{#if saved}}
                         <button class="btn float-right navButton noteButton" data-toggle="tooltip"
-                            data-id="{{this._id}}" data-placement="left" title="Notes"><i
+                            data-id="{{this._id}}" data-placement="top" title="Notes"><i
                                 class="far fa-sticky-note fa-2x"></i></button>
                         <button class="btn float-right removeSaved" data-toggle="tooltip" data-id="{{this._id}}"
-                            data-placement="left" title="Remove From Saved">
+                            data-placement="top" title="Remove From Saved">
                             <i class="far fa-trash-alt fa-2x"></i></button>
                         {{/if}}
                         {{#unless saved}}
                         <button class="btn float-right navButton saveArticle" data-toggle="tooltip"
-                            data-id="{{this._id}}" data-placement="left" title="Save Article"><i
+                            data-id="{{this._id}}" data-placement="top" title="Save Article"><i
                                 class="far fa-save fa-2x"></i></button>
                         {{/unless}}
                     </div>
